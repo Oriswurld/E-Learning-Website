@@ -1,0 +1,16 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<h1>{{ lesson.title }}</h1>
+<video controls src="{{ lesson.video_url }}" class="w-100 mb-3"></video>
+<h3>Notes</h3>
+<p>{{ lesson.notes|linebreaks }}</p>
+<h3>Quizzes</h3>
+{% for quiz in quizzes %}
+<p>{{ quiz.question }}</p>
+<ul>
+    {% for option in quiz.options %}
+    <li>{{ option }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

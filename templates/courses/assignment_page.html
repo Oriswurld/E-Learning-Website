@@ -1,0 +1,16 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<h1>{{ assignment.title }}</h1>
+<p>{{ assignment.description }}</p>
+<p><strong>Due:</strong> {{ assignment.due_date }}</p>
+{% if submission %}
+<p><strong>Your Grade:</strong> {{ submission.grade|default_if_none:"Not graded" }}</p>
+<p><strong>Feedback:</strong> {{ submission.feedback|default:"None" }}</p>
+{% endif %}
+<h3>Submit Assignment</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

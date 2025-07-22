@@ -1,0 +1,22 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<h1>Course Catalog</h1>
+<form method="GET" class="mb-4">
+    <input type="text" name="category" placeholder="Filter by category" class="form-control d-inline w-25">
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<div class="row">
+    {% for course in courses %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                <a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">View Course</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

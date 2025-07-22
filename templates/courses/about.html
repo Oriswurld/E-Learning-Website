@@ -1,0 +1,88 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+
+    <title>About Us</title>
+    
+    
+        <div class="container">
+            <h1>About Our Company</h1>
+            <p>Discover our story and values</p>
+        </div>
+    
+
+    
+    <section class="mission">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p>To facilitate and enhance the teaching and learning process using technology. This involves providing access to educational content, fostering interaction and collaboration, and enabling personalized learning experiences. Essentially, the goal is to make learning accessible, engaging, and effective for all users. .</p>
+        </div>
+    </section>
+
+    
+    <section class="team">
+        <div class="container">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="Screenshot_20250126-012326_1.jpg" alt="Team Member">
+                    <h3>Eze John Chisom</h3>
+                    <p>CEO & Founder</p>
+                </div>
+                <div class="team-member">
+                    <img src="kelvin.jpg" alt="Team Member">
+                    <h3>Ekeke Chibuikem Kelvin</h3>
+                    <p>Marketing Director</p>
+                </div>
+                <div class="team-member">
+                    <img src="Uche.jpg" alt="Team Member">
+                    <h3>Onwudike Uchechukwu Chidiebere</h3>
+                    <p>Lead Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/150" alt="Team Member">
+                    <h3>Okechukwu David</h3>
+                    <p> Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="prevailer.jpg" alt="Team Member">
+                    <h3>Osinachi Prevailer</h3>
+                    <p> Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/150" alt="Team Member">
+                    <h3>Sylvester</h3>
+                    <p>Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/150" alt="Team Member">
+                    <h3>Favour</h3>
+                    <p>Developer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="values">
+        <div class="container">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Innovation</h3>
+                    <p>We constantly push boundaries to create better solutions</p>
+                </div>
+                <div class="value-card">
+                    <h3>Integrity</h3>
+                    <p>We believe in transparency and ethical practices</p>
+                </div>
+                <div class="value-card">
+                    <h3>Excellence</h3>
+                    <p>We strive for the highest quality in everything we do</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

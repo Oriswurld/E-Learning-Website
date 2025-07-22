@@ -1,0 +1,37 @@
+# Django/Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.env
+*.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Media/static
+media/
+staticfiles/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Others
+*.bak
+*.swp
+
+# Ignore migrations except __init__.py
+**/migrations/*.pyc
+**/migrations/*.pyo
+!**/migrations/__init__.py

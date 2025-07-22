@@ -1,0 +1,71 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/student_dashboard.css' %}">
+<div class="dashboard">
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            Student Portal
+        </div>
+        <ul class="sidebar-menu">
+            <a href="#"><i class="fas fa-home"></i><span> Dashboard</span></a>
+            <a href="#"><i class="fas fa-book"></i><span> Courses</span></a>
+            <a href="#"><i class="fas fa-calendar"></i><span> My Enrolled Courses</span></a>
+            <a href="#"><i class="fas fa-cog"></i><span> Profile</span></a>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>My Enrolled Courses</h1>
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+        </div>
+
+        {% if enrollments %}
+        <div class="courses-container">
+            {% for enrollment in enrollments %}
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x150" alt="Course Thumbnail" class="course-thumbnail">
+                
+                <h3 class="course-title">{{ enrollment.course.title }}</h3>
+                <p class="course-instructor">Instructor: {{ enrollment.course.instructor.get_full_name }}</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: {{ enrollment.progress }}%"></div>
+                </div>
+                <div class="progress-text">{{ enrollment.progress }}% Complete</div>
+
+                <h4>Assignments</h4>
+                {% if enrollment.course.assignments.all %}
+                    <ul>
+                        {% for assignment in enrollment.course.assignments.all %}
+                            <li>
+                                {{ assignment.title }} (Due: {{ assignment.due_date }})
+                                {% if assignment.is_submitted %}
+                                    <span class="text-success">Submitted</span>
+                                {% else %}
+                                    <a href="{% url 'submission_create' assignment.id %}" class="btn btn-sm btn-primary">Submit</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No assignments for this course.</p>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p>You are not enrolled in any courses.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

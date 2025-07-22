@@ -1,0 +1,100 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/instructor_dashboard.css' %}">
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Instructor Dashboard</h2>
+        </div>
+        <ul class="nav-menu">
+                <a href="#courses" class="nav-link">My Courses</a>
+                <a href="#students" class="nav-link">Manage Students</a>
+                <a href="#assignments" class="nav-link">Assignments</a>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Courses Section -->
+        <section id="courses">
+            <div class="header">
+                <h1>My Courses</h1>
+                <a href="{% url 'course_create' %}" class="btn btn-primary">+ New Course</a>
+            </div>
+
+            {% if courses %}
+                <div class="courses-grid">
+                    {% for course in courses %}
+                        <div class="course-card">
+                            <h3>{{ course.title }}</h3>
+                            <p>{{ course.description }}</p>
+                            <div class="course-actions">
+                                <a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">View</a>
+                                <a href="{% url 'assignment_create' course.id %}" class="btn">Create Assignment</a>
+                                <a href="#" class="btn">Edit</a>
+                                <a href="#" class="btn">Delete</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>You have not created any courses yet.</p>
+                <a href="{% url 'course_create' %}" class="btn btn-primary">Create a Course</a>
+            {% endif %}
+        </section>
+
+        <!-- Students Section -->
+        <section id="students" style="display: none;">
+            <div class="header">
+                <h1>Manage Students</h1>
+            </div>
+
+            <div class="student-list">
+                <div class="student-item">
+                    <div>
+                        <h4>John Nero</h4>
+                        <p>johnero4blues@gmail.com</p>
+                    </div>
+                    <button class="btn">Remove</button>
+                </div>
+
+                <div class="student-item">
+                    <div>
+                        <h4>Jane Doe</h4>
+                        <p>jane@doe.com</p>
+                    </div>
+                    <button class="btn">Remove</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script>
+    // Simple example to toggle sections
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = {
+        courses: document.getElementById("courses"),
+        students: document.getElementById("students"),
+    };
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            const target = this.getAttribute("href").replace("#", "");
+
+            Object.keys(sections).forEach(sec => {
+                sections[sec].style.display = (sec === target) ? "block" : "none";
+            });
+        });
+    });
+</script>
+
+{% endblock %}

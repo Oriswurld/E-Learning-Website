@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillrise - Online Learning System</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <img src="{% static 'courses/Skillrise-logo.png' %}" alt="Skillrise" class="logo">
+            <div class="nav-links">
+                <div class="dropdown">
+                    <a href="#">Subjects ▾</a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-column">
+                            <a href="#">HTML</a>
+                            <a href="#">CSS</a>
+                            <a href="#">Web Development</a>
+                            <a href="#">Backend Development</a>
+                        </div>
+                        <br>
+                        <div class="dropdown-column">
+                            <a href="#">Data Analytics</a>
+                            <a href="#">Language</a>
+                            <a href="#">Law</a>
+                            <a href="#">Literature</a>
+                        </div>
+                        <br>
+                        <div class="dropdown-column">
+                            <a href="#">Nature & Environment</a>
+                            <a href="#">Politics & Society</a>
+                            <a href="#">Psychology & Mental Health</a>
+                            <a href="#">Science, Engineering & Maths</a>
+                            <a href="#">Study Skills</a>
+                            <a href="#">Teaching</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#">Courses ▾</a>
+                    <div class="dropdown-content courses-dropdown">
+                        <div class="dropdown-column">
+                            <div class="dropdown-section">
+                                <a href=""><h4>Explore Our Courses</h4></a>
+                                <a href="#">Explore Courses with Unlimited</a>
+                                <a href="#">ExpertTracks</a>
+                                <a href="#">Premium Courses</a>
+                                <a href="#">All Short Online Courses</a>
+                            </div>
+                        </div>
+                        <div class="dropdown-footer">
+                            <a href="#">View all courses →</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+                    {% elif user.groups.all.0.name == 'Instructors' %}
+                        <a href="{% url 'instructor_dashboard' %}">Dashboard</a>
+                    {% elif user.groups.all.0.name == 'Students' %}
+                        <a href="{% url 'student_dashboard' %}">Dashboard</a>
+                    {% else %}
+                        <a href="#">Dashboard</a>
+                    {% endif %}
+                    {% comment %} <a href="#">Educators</a> {% endcomment %}
+                {% else %}
+                    <a href="#">Dashboard</a>
+                    {% comment %} <a href="#">Educators</a> {% endcomment %}
+                {% endif %}
+            </div>
+
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                    <span class="welcome-message text-success">Welcome, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}">
+                        <button class="logout btn btn-outline-primary ms-2">Logout</button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <button class="sign-in btn btn-primary">Sign In</button>
+                    </a>
+                    <a href="{% url 'register' %}">
+                        <button class="register btn btn-outline-primary ms-2">Register</button>
+                    </a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="#">Partners</a></li>
+                    <li><a href="#">Affiliates</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="{% url 'faq' %}">FAQs</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="language-selector">
+            <select>
+                <option>English</option>
+                <option>Spanish</option>
+                <option>Igbo</option>
+            </select>
+        </div>
+    </footer>
+</body>
+</html>

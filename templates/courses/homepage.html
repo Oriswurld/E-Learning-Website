@@ -1,0 +1,36 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/homepage1.css' %}">
+
+    <section class="hero">
+        <h1>Learn new skills online with top educators</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="What do you want to learn?">
+            <button>Search</button>
+        </div>
+        <p>Join millions of people learning from expert educators</p>
+    </section>
+
+    <section class="categories">
+        <h2>Explore Popular Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <h3>Learning HTML</h3>
+            </div>
+            <div class="category-card">
+                <h3>CSS: Basic Styling Techniques</h3>
+            </div>
+            <div class="category-card">
+                <h3>Understanding Python Programming Language</h3>
+            </div>
+            <div class="category-card">
+                <h3>Django Framework</h3>
+            </div>
+            
+        </div>
+    </section>
+
+   
+{% endblock %}

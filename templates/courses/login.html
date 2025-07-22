@@ -1,0 +1,100 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/loginregister.css' %}">
+
+<div class="page-wrapper">
+
+    <div class="page-container">
+        
+        <div class="image-section">
+            <img src="{% static 'img/login.jpg' %}" alt="School Illustration">
+        </div>
+
+        <div class="auth-container">
+            <div class="tabs">
+                <button class="tab active" onclick="switchForm('login')">Login</button>
+                <button class="tab" onclick="switchForm('register')">Register</button>
+            </div>
+
+            <div class="form-container">
+                
+                <form method="POST" action="{% url 'login' %}" class="form active" id="loginForm">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="role" id="loginRole" value="student">
+
+                    <div class="role-selector">
+                        <div class="role-option selected" onclick="selectRole('student', this)">Student</div>
+                        <div class="role-option" onclick="selectRole('instructor', this)">Instructor</div>
+                    </div>
+                    
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                    <div class="toggle-form">
+                        Don't have an account? <a onclick="switchForm('register')">Register here</a>
+                    </div>
+                </form>
+
+                <form method="POST" action="{% url 'register' %}" class="form" id="registerForm">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="role" id="registerRole" value="student">
+
+                    <div class="role-selector">
+                        <div class="role-option selected" onclick="selectRole('student', this)">Student</div>
+                        <div class="role-option" onclick="selectRole('instructor', this)">Instructor</div>
+                    </div>
+
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="password1" placeholder="Confirm Password" required>
+                    
+                    <button type="submit">Create Account</button>
+                    <div class="toggle-form">
+                        Already have an account? <a onclick="switchForm('login')">Login here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    <script>
+        function switchForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.tab');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            if(formType === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                tabs[0].classList.add('active');
+            } else {
+                registerForm.classList.add('active');
+                loginForm.classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        function selectRole(role, element) {
+            const options = document.querySelectorAll('.role-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            document.getElementById('loginRole').value = role;
+            const registerRole = document.getElementById('registerRole');
+            if (registerRole) registerRole.value = role;
+            const instructorCode = document.getElementById('instructorCode');
+            instructorCode.style.display = role === 'instructor' ? 'block' : 'none';
+        }
+    </script>
+{% endblock %}
